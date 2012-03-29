@@ -1,0 +1,38 @@
+#! /bin/bash
+
+function echoPDF(){
+	echo pdflatex $1.tex
+	pdflatex $1.tex
+}
+
+fileWithoutExtension=${1%%.*}
+
+echoPDF $fileWithoutExtension
+
+echo bibtex $fileWithoutExtension
+bibtex $fileWithoutExtension
+
+echoPDF $fileWithoutExtension
+
+
+
+echoPDF $fileWithoutExtension
+
+#echo
+#echo
+
+#echo 'Removing temp files:'
+#echo rm $1.aux
+#rm $1.aux
+#echo rm $1.bbl
+#rm $1.bbl
+#echo rm $1.blg
+#rm $1.blg
+#echo rm $1.log
+#rm $1.log
+#echo rm $1.out
+#rm $1.out
+#echo rm $1.toc
+#rm $1.toc
+wc=`detex $fileWithoutExtension| wc -w`
+echo "Wordcount of $fileWithoutExtension:$wc"
